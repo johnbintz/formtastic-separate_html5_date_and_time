@@ -15,7 +15,13 @@ module Formtastic
           end
 
           datetime_attrs.each do |attr, values|
-            attrs[attr] = values["#{attr}(date)"] + ' ' + values["#{attr}(time)"]
+            if !values["#{attr}(date)"].blank?
+              value = (values["#{attr}(date)"] + ' ' + values["#{attr}(time)"]).strip
+
+              if !value.blank?
+                attrs[attr.to_sym] = value
+              end
+            end
 
             attrs.delete("#{attr}(date)")
             attrs.delete("#{attr}(time)")
@@ -27,3 +33,4 @@ module Formtastic
     end
   end
 end
+

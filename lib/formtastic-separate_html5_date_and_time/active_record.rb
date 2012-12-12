@@ -2,10 +2,8 @@ require 'formtastic-separate_html5_date_and_time/processor'
 
 module ActiveRecord
   module ProcessSeparateDateAndTimePickerInputs
-    def assign_multiparameter_attributes(attrs)
-      Formtastic::SeparateDateAndTimePickerInput::Processor.process(attrs).each do |attribute, value|
-        public_send("#{attribute}=", value)
-      end
+    def assign_attributes(attrs = nil, *args)
+      super Formtastic::SeparateDateAndTimePickerInput::Processor.process(attrs), *args
     end
 
     def update_attributes(attrs = nil)
@@ -13,3 +11,4 @@ module ActiveRecord
     end
   end
 end
+
