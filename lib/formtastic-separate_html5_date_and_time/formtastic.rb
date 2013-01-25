@@ -2,8 +2,8 @@ class SeparateDateAndTimePickerInput < Formtastic::Inputs::DatetimePickerInput
   def to_html
     input_wrapping do
       label_html <<
-      builder.text_field("#{method}(date)", date_input_html_options) <<
-      builder.text_field("#{method}(time)", time_input_html_options)
+      builder.text_field(date_method, date_input_html_options) <<
+      builder.text_field(time_method, time_input_html_options)
     end
   end
 
@@ -14,6 +14,14 @@ class SeparateDateAndTimePickerInput < Formtastic::Inputs::DatetimePickerInput
 
   def time_input_html_options
     { 'type' => 'time', 'value' => time_value }
+  end
+
+  def date_method
+    "#{method}(date)"
+  end
+
+  def time_method
+    "#{method}(time)"
   end
 
   def date_value
