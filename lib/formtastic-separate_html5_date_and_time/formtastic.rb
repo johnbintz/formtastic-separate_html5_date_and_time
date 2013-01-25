@@ -32,6 +32,15 @@ class SeparateDateAndTimePickerInput < Formtastic::Inputs::DatetimePickerInput
     value_parts.last
   end
 
+  def value
+    return options[:input_html][:value] if options[:input_html] && options[:input_html].key?(:value)
+
+    val = object.send(method)
+    return val.strftime('%Y-%m-%d %H:%M') if val.kind_of?(DateTime)
+
+    super
+  end
+
   def value_parts
     @value_parts ||= (value || '').split(' ')
   end
